@@ -49,8 +49,9 @@ class _AboutState extends State<About> {
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Text(
-                          "Devoloped by brocamp.\nSupported by thankan.\nContact us.\nwww.brocamp.com",
-                          style: CustomTextStyles.titleText,
+                          "Devoloped by brocamp.\nSupported by abi shaikh.\nContact us.\nwww.brocamp.com",
+                          style: CustomTextStyles.titleText
+                              .copyWith(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ))),

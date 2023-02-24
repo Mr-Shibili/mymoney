@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
+import 'package:mymoney/db/categorydb/category_db.dart';
+import 'package:mymoney/db/categorydb/transactiondb/transactiondb.dart';
+import 'package:mymoney/model/category/category.dart';
 import 'package:mymoney/screens/widgets/global_widgets.dart';
 
 class ExpensePie extends StatefulWidget {
@@ -10,26 +14,42 @@ class ExpensePie extends StatefulWidget {
   State<StatefulWidget> createState() => PieChart2State();
 }
 
+List<String> valname = [];
+List<double> val = [];
+List<Color> color = [];
+
 class PieChart2State extends State {
   int touchedIndex = -1;
 
+  double sum = 0;
+
+  @override
+  void initState() {
+    chart();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    log(valname.length.toString());
     return AspectRatio(
-      aspectRatio: 1.6,
+      aspectRatio: 1.5,
       child: Card(
         color: Colors.white,
         child: Column(
           children: [
             Text(
-              'Expenses',
+              'Incomes',
               style: CustomTextStyles.h2Text,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Expanded(
+                  flex: 1,
                   child: AspectRatio(
-                    aspectRatio: 1.4,
+                    aspectRatio: 1.5,
                     child: PieChart(
                       PieChartData(
                         pieTouchData: PieTouchData(
@@ -57,43 +77,19 @@ class PieChart2State extends State {
                     ),
                   ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Indicator(
-                      color: const Color(0xff0293ee),
-                      text: 'Food',
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    Indicator(
-                      color: const Color(0xfff8b250),
-                      text: 'Health',
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    Indicator(
-                      color: const Color(0xff845bef),
-                      text: 'rent',
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    Indicator(
-                      color: const Color(0xff13d38e),
-                      text: 'Fourth',
-                    ),
-                    const SizedBox(
-                      height: 18,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  width: 28,
-                ),
+                SizedBox(
+                  height: 200,
+                  width: 150,
+                  child: ListView.builder(
+                    itemCount: valname.length,
+                    itemBuilder: (context, index) =>
+                        valname.isEmpty || color.isEmpty
+                            ? const SizedBox()
+                            : indicator(
+                                color: color[index],
+                                text: Text(valname[index])),
+                  ),
+                )
               ],
             ),
           ],
@@ -103,74 +99,66 @@ class PieChart2State extends State {
   }
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
+    return List.generate(valname.length, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
       final radius = isTouched ? 60.0 : 50.0;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        default:
-          throw Error();
-      }
+      var value = percentage(val[i]);
+      var per = value.roundToDouble().toInt();
+      return PieChartSectionData(
+        color: color[i],
+        value: value,
+        title: '$per%',
+        radius: radius,
+        titleStyle: TextStyle(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          color: const Color(0xffffffff),
+        ),
+      );
     });
   }
 
-  // ignore: non_constant_identifier_names
-  Widget Indicator({required Color color, required String text}) {
+  Future<void> chart() async {
+    valname.clear();
+    val.clear();
+
+    final listData = await Transactiondb.instance.getAllTransaction();
+    setState(() {
+      final expenselist = listData.where((data) {
+        return data.category.type == CategoryType.expense;
+      }).toList();
+      for (var element in CategoryDb.instance.expensecategorylistner.value) {
+        final ans = expenselist
+            .where((e) => e.category.name == element.name)
+            .toList()
+            .fold<double>(
+                0, (previousValue, element) => previousValue + element.amount);
+        valname.add(element.name);
+        val.add(ans);
+        sum += ans;
+      }
+    });
+    color =
+        List.generate(valname.length, (index) => Colors.primaries[index * 2]);
+    log(color.length.toString() + 'ojoojo');
+    //Transactiondb.instance.transactionlistnotifier.value.clear();
+    //Transactiondb.instance.transactionlistnotifier.value.addAll(sorted);
+  }
+
+  double percentage(double amount) {
+    double result = (amount / sum) * 100;
+    return result;
+  }
+
+  Widget indicator({required Color color, required Widget text}) {
     return Row(
       children: [
         Icon(
           Icons.square,
           color: color,
         ),
-        Text(text),
+        text,
       ],
     );
   }

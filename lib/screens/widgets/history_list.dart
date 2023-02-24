@@ -52,6 +52,7 @@ class _HistoryListState extends State<HistoryList> {
         return newlist.isEmpty
             ? const Center(child: Text('Empty'))
             : ListView.builder(
+                // physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (ctx, index) {
                   final value = newlist[index];

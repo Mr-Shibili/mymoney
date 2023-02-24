@@ -18,14 +18,15 @@ class CustomTextStyles {
 }
 
 class CustomChoice extends StatefulWidget {
-  CustomChoice({
+  const CustomChoice({
+    this.isDropDown = true,
     super.key,
     required this.selectcolor,
     required this.backcolor,
   });
   final Color selectcolor;
   final Color backcolor;
-
+  final bool isDropDown;
   @override
   State<CustomChoice> createState() => _CustomChoiceState();
 }
@@ -40,37 +41,39 @@ class _CustomChoiceState extends State<CustomChoice> {
     //
     return Row(
       children: [
-        Container(
-          alignment: Alignment.center,
-          height: 35,
-          width: 120,
-          decoration: BoxDecoration(
-              color: ColorTheme.whiteColor,
-              border: Border.all(
-                  color: ColorTheme.whiteColor, style: BorderStyle.solid),
-              borderRadius: BorderRadius.circular(30)),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton(
-              hint: const Text('Select'),
-              value: dropdownValue,
-              onChanged: (String? value) {
-                // This is called when the user selects an item.
-                setState(() {
-                  dropdownValue = value!;
-                  log(value);
-                  seperated(value);
-                });
-              },
-              items: item.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              icon: const Icon(Icons.arrow_drop_down),
-            ),
-          ),
-        ),
+        !widget.isDropDown
+            ? SizedBox()
+            : Container(
+                alignment: Alignment.center,
+                height: 35,
+                width: 120,
+                decoration: BoxDecoration(
+                    color: ColorTheme.whiteColor,
+                    border: Border.all(
+                        color: ColorTheme.whiteColor, style: BorderStyle.solid),
+                    borderRadius: BorderRadius.circular(30)),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    hint: const Text('Select'),
+                    value: dropdownValue,
+                    onChanged: (String? value) {
+                      // This is called when the user selects an item.
+                      setState(() {
+                        dropdownValue = value!;
+                        log(value);
+                        seperated(value);
+                      });
+                    },
+                    items: item.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    icon: const Icon(Icons.arrow_drop_down),
+                  ),
+                ),
+              ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: List<Widget>.generate(

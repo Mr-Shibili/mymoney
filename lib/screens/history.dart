@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mymoney/db/categorydb/category_db.dart';
 import 'package:mymoney/db/categorydb/transactiondb/transactiondb.dart';
 import 'package:mymoney/model/category/category.dart';
 import 'package:mymoney/model/category/transaction_model.dart';
@@ -26,6 +27,7 @@ class _HistoryState extends State<History> {
   void initState() {
     super.initState();
     Transactiondb.instance.refresh();
+    CategoryDb.instance.refreshUI();
   }
 
   @override

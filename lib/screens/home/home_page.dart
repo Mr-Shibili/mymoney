@@ -67,10 +67,11 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-          CustomChoice(
-            selectcolor: ColorTheme.primaryColor,
-            backcolor: ColorTheme.whiteColor,
-          ),
+          SizedBox(height: 30),
+          // CustomChoice(
+          //   selectcolor: ColorTheme.primaryColor,
+          //   backcolor: ColorTheme.whiteColor,
+          // ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

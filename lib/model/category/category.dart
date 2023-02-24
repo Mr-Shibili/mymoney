@@ -15,7 +15,7 @@ class CategoryModel {
   final String id;
 
   @HiveField(1)
-  final String name;
+  late final String name;
 
   @HiveField(2)
   final bool isDeleted;

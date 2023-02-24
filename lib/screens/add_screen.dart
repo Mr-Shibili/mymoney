@@ -31,10 +31,9 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   void initState() {
-    selectedcategorytype = CategoryType.expense;
-
     Transactiondb.instance.refresh();
     initFunction();
+    selectedcategorytype = CategoryType.expense;
 
     super.initState();
   }
@@ -60,7 +59,7 @@ class _AddScreenState extends State<AddScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 320,
+            height: 300,
             decoration: BoxDecoration(
                 color: ColorTheme.primaryColor,
                 borderRadius:
