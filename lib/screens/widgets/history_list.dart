@@ -52,9 +52,10 @@ class _HistoryListState extends State<HistoryList> {
         return newlist.isEmpty
             ? const Center(child: Text('Empty'))
             : ListView.builder(
-                // physics: NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (ctx, index) {
+                  newlist.sort((a, b) => b.date.compareTo(a.date));
                   final value = newlist[index];
 
                   return Card(

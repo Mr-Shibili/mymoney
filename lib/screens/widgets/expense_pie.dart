@@ -32,17 +32,16 @@ class PieChart2State extends State {
 
   @override
   Widget build(BuildContext context) {
-    log(valname.length.toString());
     return AspectRatio(
       aspectRatio: 1.5,
       child: Card(
         color: Colors.white,
         child: Column(
           children: [
-            Text(
-              'Incomes',
-              style: CustomTextStyles.h2Text,
-            ),
+            Text('Expenses',
+                style: CustomTextStyles.h2Text
+                    .copyWith(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -55,16 +54,14 @@ class PieChart2State extends State {
                         pieTouchData: PieTouchData(
                           touchCallback:
                               (FlTouchEvent event, pieTouchResponse) {
-                            setState(() {
-                              if (!event.isInterestedForInteractions ||
-                                  pieTouchResponse == null ||
-                                  pieTouchResponse.touchedSection == null) {
-                                touchedIndex = -1;
-                                return;
-                              }
-                              touchedIndex = pieTouchResponse
-                                  .touchedSection!.touchedSectionIndex;
-                            });
+                            if (!event.isInterestedForInteractions ||
+                                pieTouchResponse == null ||
+                                pieTouchResponse.touchedSection == null) {
+                              touchedIndex = -1;
+                              return;
+                            }
+                            touchedIndex = pieTouchResponse
+                                .touchedSection!.touchedSectionIndex;
                           },
                         ),
                         borderData: FlBorderData(
@@ -77,17 +74,28 @@ class PieChart2State extends State {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 200,
-                  width: 150,
-                  child: ListView.builder(
-                    itemCount: valname.length,
-                    itemBuilder: (context, index) =>
-                        valname.isEmpty || color.isEmpty
-                            ? const SizedBox()
-                            : indicator(
-                                color: color[index],
-                                text: Text(valname[index])),
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                        itemCount: valname.length,
+                        itemBuilder: (context, index) => indicator(
+                              color: color[index],
+                              text: RichText(
+                                  text: TextSpan(children: [
+                                TextSpan(
+                                    text: valname[index],
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    text: '  (${val[index].toInt()})',
+                                    style: const TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold))
+                              ])),
+                            )),
                   ),
                 )
               ],
@@ -136,14 +144,12 @@ class PieChart2State extends State {
                 0, (previousValue, element) => previousValue + element.amount);
         valname.add(element.name);
         val.add(ans);
+
         sum += ans;
       }
     });
     color =
         List.generate(valname.length, (index) => Colors.primaries[index * 2]);
-    log(color.length.toString() + 'ojoojo');
-    //Transactiondb.instance.transactionlistnotifier.value.clear();
-    //Transactiondb.instance.transactionlistnotifier.value.addAll(sorted);
   }
 
   double percentage(double amount) {

@@ -55,243 +55,246 @@ class _AddScreenState extends State<AddScreen> {
         elevation: 0,
         backgroundColor: ColorTheme.primaryColor,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 300,
-            decoration: BoxDecoration(
-                color: ColorTheme.primaryColor,
-                borderRadius:
-                    const BorderRadius.vertical(bottom: Radius.circular(50))),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(width: 26),
-                      Radio(
-                        activeColor: ColorTheme.whiteColor,
-                        value: CategoryType.expense,
-                        groupValue: selectedcategorytype,
-                        onChanged: (val) {
-                          setState(() {
-                            selectedcategorytype = CategoryType.expense;
-                            categoryid = null;
-                          });
-                        },
-                      ),
-                      Text(
-                        'Expense',
-                        style: CustomTextStyles.h2Text,
-                      ),
-                      Radio(
-                        activeColor: ColorTheme.whiteColor,
-                        value: CategoryType.income,
-                        groupValue: selectedcategorytype,
-                        onChanged: (val) {
-                          setState(() {
-                            selectedcategorytype = CategoryType.income;
-                            categoryid = null;
-                          });
-                        },
-                      ),
-                      Text(
-                        'Income',
-                        style: CustomTextStyles.h2Text,
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(width: 40),
-                      Container(
-                        width: 150,
-                        height: 35,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                        ),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: DropdownButton<String>(
-                          value: categoryid,
-                          items: (selectedcategorytype == CategoryType.expense
-                                  ? CategoryDb().expensecategorylistner
-                                  : CategoryDb().incomecategorylistner)
-                              .value
-                              .map((e) {
-                            return DropdownMenuItem(
-                                onTap: (() {
-                                  selectedcategorymodel = e;
-                                }),
-                                value: e.id,
-                                child: Text(e.name));
-                          }).toList(),
-                          hint: const Text(
-                            "Category",
-                            style: TextStyle(
-                                fontSize: 13, fontWeight: FontWeight.w600),
-                          ),
-                          onChanged: (selectedvalue) {
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 300,
+              decoration: BoxDecoration(
+                  color: ColorTheme.primaryColor,
+                  borderRadius:
+                      const BorderRadius.vertical(bottom: Radius.circular(50))),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SizedBox(width: 26),
+                        Radio(
+                          activeColor: ColorTheme.whiteColor,
+                          value: CategoryType.expense,
+                          groupValue: selectedcategorytype,
+                          onChanged: (val) {
                             setState(() {
-                              categoryid = selectedvalue;
+                              selectedcategorytype = CategoryType.expense;
+                              categoryid = null;
                             });
                           },
-                          underline: const SizedBox(),
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const AddCategory()));
+                        Text(
+                          'Expense',
+                          style: CustomTextStyles.h2Text,
+                        ),
+                        Radio(
+                          activeColor: ColorTheme.whiteColor,
+                          value: CategoryType.income,
+                          groupValue: selectedcategorytype,
+                          onChanged: (val) {
+                            setState(() {
+                              selectedcategorytype = CategoryType.income;
+                              categoryid = null;
+                            });
                           },
-                          child: Text('Add category',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: ColorTheme.lightblueColor))),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 150,
-                        height: 35,
-                        child: TextFormField(
-                          controller: amountTextEditingController,
-                          keyboardType: TextInputType.number,
-                          textAlignVertical: TextAlignVertical.bottom,
-                          decoration: InputDecoration(
-                            icon: const Icon(
-                              Icons.currency_rupee,
+                        ),
+                        Text(
+                          'Income',
+                          style: CustomTextStyles.h2Text,
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SizedBox(width: 40),
+                        Container(
+                          width: 150,
+                          height: 35,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                          ),
+                          decoration: BoxDecoration(
                               color: Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: DropdownButton<String>(
+                            value: categoryid,
+                            items: (selectedcategorytype == CategoryType.expense
+                                    ? CategoryDb().expensecategorylistner
+                                    : CategoryDb().incomecategorylistner)
+                                .value
+                                .map((e) {
+                              return DropdownMenuItem(
+                                  onTap: (() {
+                                    selectedcategorymodel = e;
+                                  }),
+                                  value: e.id,
+                                  child: Text(e.name));
+                            }).toList(),
+                            hint: const Text(
+                              "Category",
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.w600),
                             ),
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            hintText: 'Amount',
+                            onChanged: (selectedvalue) {
+                              setState(() {
+                                categoryid = selectedvalue;
+                              });
+                            },
+                            underline: const SizedBox(),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 20),
-                      TextButton.icon(
-                          onPressed: () async {
-                            final selectedtemp = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime.now()
-                                    .subtract(const Duration(days: 30)),
-                                lastDate: DateTime.now());
-                            if (selectedtemp == null) {
-                              return;
-                            } else {
-                              setState(() {
-                                selectdate = selectedtemp;
-                              });
-                            }
-                          },
-                          icon: const Icon(
-                            Icons.calendar_today,
-                            color: Color.fromARGB(255, 22, 1, 255),
-                          ),
-                          label: Text(
-                            selectdate == null
-                                ? 'Select date'
-                                : DateFormat.yMMMd().format(selectdate),
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 22, 1, 255),
-                            ),
-                          ))
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Text('Note : '),
-                      Expanded(
-                        child: SizedBox(
+                        const SizedBox(width: 10),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AddCategory()));
+                            },
+                            child: Text('Add category',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: ColorTheme.lightblueColor))),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
                           width: 150,
                           height: 35,
                           child: TextFormField(
-                            controller: noteTextEditingController,
+                            controller: amountTextEditingController,
+                            keyboardType: TextInputType.number,
                             textAlignVertical: TextAlignVertical.bottom,
                             decoration: InputDecoration(
+                              icon: const Icon(
+                                Icons.currency_rupee,
+                                color: Colors.white,
+                              ),
                               filled: true,
                               fillColor: Colors.white,
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
-                              hintText: 'hint',
+                              hintText: 'Amount',
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    height: 40,
-                    width: 200,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all<OutlinedBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
+                        const SizedBox(width: 20),
+                        TextButton.icon(
+                            onPressed: () async {
+                              final selectedtemp = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime.now()
+                                      .subtract(const Duration(days: 30)),
+                                  lastDate: DateTime.now());
+                              if (selectedtemp == null) {
+                                return;
+                              } else {
+                                setState(() {
+                                  selectdate = selectedtemp;
+                                });
+                              }
+                            },
+                            icon: const Icon(
+                              Icons.calendar_today,
+                              color: Color.fromARGB(255, 22, 1, 255),
+                            ),
+                            label: Text(
+                              selectdate == null
+                                  ? 'Select date'
+                                  : DateFormat.yMMMd().format(selectdate),
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 22, 1, 255),
+                              ),
+                            ))
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text('Note : '),
+                        Expanded(
+                          child: SizedBox(
+                            width: 150,
+                            height: 35,
+                            child: TextFormField(
+                              textCapitalization: TextCapitalization.sentences,
+                              controller: noteTextEditingController,
+                              textAlignVertical: TextAlignVertical.bottom,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                hintText: 'Hint..',
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      onPressed: () {
-                        addTransaction().then((value) {
-                          setState(() {});
-                          noteTextEditingController.clear();
-                          amountTextEditingController.clear();
-                        });
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      },
-                      child: Text(
-                        'Save',
-                        style: CustomTextStyles.h2Text
-                            .copyWith(color: Colors.white),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 40,
+                      width: 200,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          addTransaction().then((value) {
+                            setState(() {});
+                            noteTextEditingController.clear();
+                            amountTextEditingController.clear();
+                          });
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        },
+                        child: Text(
+                          'Save',
+                          style: CustomTextStyles.h2Text
+                              .copyWith(color: Colors.white),
+                        ),
                       ),
                     ),
+                    const SizedBox(height: 10)
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  const SizedBox(width: 12),
+                  Text(
+                    'Recent',
+                    style: CustomTextStyles.titleText,
                   ),
-                  const SizedBox(height: 10)
+                  // IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
                 ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Recent',
-                  style: CustomTextStyles.titleText,
-                ),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-              ],
-            ),
-          ),
-          Expanded(
-              child: HistoryList(
-            selectedcategorymodel: selectedcategorymodel,
-            selectedcategorytype: selectedcategorytype,
-            selectdate: selectdate,
-          ))
-        ],
+            HistoryList(
+              selectedcategorymodel: selectedcategorymodel,
+              selectedcategorytype: selectedcategorytype,
+              selectdate: selectdate,
+            )
+          ],
+        ),
       ),
     );
   }

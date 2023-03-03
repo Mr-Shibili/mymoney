@@ -19,6 +19,7 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
     Hive.registerAdapter(TransactionModelAdapter());
   }
+  await Transactiondb.instance.refresh();
 
   runApp(const MyApp());
 }

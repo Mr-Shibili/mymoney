@@ -43,6 +43,8 @@ class _AddCategoryState extends State<AddCategory>
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        title: Text('Add category',
+            style: CustomTextStyles.titleText.copyWith(color: Colors.white)),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -51,7 +53,6 @@ class _AddCategoryState extends State<AddCategory>
         ),
         elevation: 0,
         backgroundColor: ColorTheme.primaryColor,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: Column(
         children: [
@@ -65,9 +66,6 @@ class _AddCategoryState extends State<AddCategory>
                   color: ColorTheme.primaryColor,
                   borderRadius:
                       const BorderRadius.vertical(bottom: Radius.circular(40))),
-              child: Text('Add category',
-                  style:
-                      CustomTextStyles.titleText.copyWith(color: Colors.white)),
             ),
           ),
           Expanded(

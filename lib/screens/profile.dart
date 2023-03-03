@@ -43,30 +43,11 @@ class _ProfileState extends State<Profile> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 70,
+              height: 25,
               decoration: BoxDecoration(
                   color: ColorTheme.primaryColor,
                   borderRadius:
                       const BorderRadius.vertical(bottom: Radius.circular(40))),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: ListTile(
-                  leading: const CircleAvatar(
-                    radius: 30,
-                  ),
-                  title: Text(
-                    'ProfileName',
-                    style:
-                        CustomTextStyles.h2Text.copyWith(color: Colors.white),
-                  ),
-                  subtitle: const Text('Number'),
-                  trailing: Icon(
-                    Iconsax.edit,
-                    size: 20,
-                    color: ColorTheme.whiteColor,
-                  ),
-                ),
-              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10, top: 10),

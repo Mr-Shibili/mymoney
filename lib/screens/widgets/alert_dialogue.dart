@@ -60,6 +60,7 @@ class _AlertdialogueaddState extends State<Alertdialogueadd> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: TextFormField(
+              textCapitalization: TextCapitalization.words,
               decoration: const InputDecoration(border: OutlineInputBorder()),
               controller: categoryController,
               validator: (categoryController) {

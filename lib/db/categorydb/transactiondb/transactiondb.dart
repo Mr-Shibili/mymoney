@@ -70,19 +70,16 @@ class Transactiondb implements TransactionFunctions {
   Future<void> edittransaction(TransactionModel value) async {
     final db = await Hive.openBox<TransactionModel>(TRANSACTION_DB_NAME);
 
-    try {
-      await db.put(
-          value.id,
-          TransactionModel(
-              id: value.id,
-              type: value.type,
-              category: value.category,
-              amount: value.amount,
-              date: value.date,
-              note: value.note));
-    } catch (e) {
-      log(e.toString());
-    }
+    await db.put(
+        value.id,
+        TransactionModel(
+            id: value.id,
+            type: value.type,
+            category: value.category,
+            amount: value.amount,
+            date: value.date,
+            note: value.note));
+
     refresh();
   }
 

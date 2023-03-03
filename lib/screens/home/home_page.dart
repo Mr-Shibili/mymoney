@@ -1,13 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mymoney/db/categorydb/category_db.dart';
+import 'package:mymoney/db/categorydb/transactiondb/transactiondb.dart';
+import 'package:mymoney/model/category/category.dart';
 import 'package:mymoney/screens/home/charts.dart';
 import 'package:mymoney/screens/home/green_list.dart';
-
 import 'package:mymoney/theme/color_theme.dart';
-
 import 'package:mymoney/screens/widgets/global_widgets.dart';
-
-import '../widgets/notification_class.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +18,38 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double? bahu;
+
+  Future<double?> total() async {
+    final listData = await Transactiondb.instance.getAllTransaction();
+    var total;
+    for (var element in CategoryDb.instance.expensecategorylistner.value) {
+      total = listData
+          .where((data) {
+            return data.category.type == CategoryType.expense;
+          })
+          .toList()
+          .fold<double>(
+              0, (previousValue, element) => previousValue + element.amount);
+    }
+
+    log(total.toString());
+    return total;
+  }
+
+  void callTotal() async {
+    bahu = await total();
+    setState(() {});
+    log(bahu.toString() + 'bahu');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    callTotal();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,86 +85,72 @@ class _HomePageState extends State<HomePage> {
           const Greenboard(),
           const SizedBox(height: 13),
           Row(
-            children: [
-              const CircleAvatar(),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Star Bucks',
-                    style: CustomTextStyles.h3Text,
-                  ),
-                  const Text('₹799'),
-                ],
-              )
-            ],
-          ),
-          SizedBox(height: 30),
-          // CustomChoice(
-          //   selectcolor: ColorTheme.primaryColor,
-          //   backcolor: ColorTheme.whiteColor,
-          // ),
-          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 50,
-                width: 8,
-                decoration: BoxDecoration(
-                    color: ColorTheme.primaryColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(20))),
-              ),
-              const SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Row(
                 children: [
-                  Text(
-                    'Spending',
-                    style: CustomTextStyles.h2Text,
+                  const SizedBox(
+                    width: 8,
                   ),
-                  Text(
-                    '₹8799',
-                    style: CustomTextStyles.h2Text.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: ColorTheme.primaryColor),
+                  Container(
+                    height: 50,
+                    width: 8,
+                    decoration: BoxDecoration(
+                        color: ColorTheme.primaryColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                  ),
+                  const SizedBox(width: 8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'Income',
+                        style: CustomTextStyles.h2Text,
+                      ),
+                      Text(
+                        '',
+                        style: CustomTextStyles.h2Text.copyWith(
+                            fontWeight: FontWeight.bold, color: Colors.green),
+                      ),
+                    ],
                   ),
                 ],
-              )
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 8,
+                    decoration: BoxDecoration(
+                        color: ColorTheme.primaryColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                  ),
+                  const SizedBox(width: 8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'Spending',
+                        style: CustomTextStyles.h2Text,
+                      ),
+                      Text(
+                        bahu.toString(),
+                        style: CustomTextStyles.h2Text.copyWith(
+                            fontWeight: FontWeight.bold, color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ],
           ),
           const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 50,
-                width: 8,
-                decoration: BoxDecoration(
-                    color: ColorTheme.buttonColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(20))),
-              ),
-              const SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Count',
-                    style: CustomTextStyles.h2Text,
-                  ),
-                  Text(
-                    '49',
-                    style: CustomTextStyles.h2Text.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: ColorTheme.buttonColor),
-                  ),
-                ],
-              )
-            ],
-          ),
-          const SizedBox(height: 8),
-          const BarChartSample3(),
+          BarChartSample2(),
         ],
       )),
     );

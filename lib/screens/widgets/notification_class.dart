@@ -35,31 +35,40 @@ class NotificationServices {
   }
 
   Future periodicalshowNotification(
-      {ctx, int id = 0, String? title, String? body, String? playload}) async {
-    TimeOfDay initTime = TimeOfDay.now();
-    ts.initializeTimeZones();
+      {ctx, int id = 0, String? title, String? body}) async {
+    TimeOfDay initTime = const TimeOfDay(hour: 22, minute: 0);
+    // ts.initializeTimeZones();
     final now = DateTime.now();
-    TimeOfDay? time;
+    var scheduleTime;
 
     final picked = await showTimePicker(context: ctx, initialTime: initTime);
     if (picked != null) {
-      time = picked;
-    }
-    final scheduleTime =
-        DateTime(now.year, now.month, now.day, time!.hour, time.minute, 0);
-    if (scheduleTime.isBefore(now)) {
-      scheduleTime.add(const Duration(days: 1));
+      scheduleTime =
+          DateTime(now.year, now.month, now.day, picked.hour, picked.minute, 0);
     }
 
-    return notificationsPlugin.zonedSchedule(
-        id,
-        title,
-        body,
-        tz.TZDateTime.now(tz.local).add(Duration(seconds: 1)),
-        notificationDetails(),
+    return notificationsPlugin.zonedSchedule(id, title, body,
+        _nextInstanceOfScheduledTime(scheduleTime), notificationDetails(),
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         androidAllowWhileIdle: true);
+  }
+
+  tz.TZDateTime _nextInstanceOfScheduledTime(DateTime scheduledDateTime) {
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduledDate = tz.TZDateTime(
+        tz.local,
+        scheduledDateTime.year,
+        scheduledDateTime.month,
+        scheduledDateTime.day,
+        scheduledDateTime.hour,
+        scheduledDateTime.minute);
+
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+
+    return scheduledDate;
   }
 
   Future stopNotification() async {

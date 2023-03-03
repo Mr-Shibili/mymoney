@@ -10,4 +10,6 @@ class ColorTheme {
   static Color greenColor = const Color.fromARGB(255, 1, 252, 5);
   static Color yellowColor = const Color.fromARGB(255, 242, 190, 89);
   static Color lightblueColor = const Color.fromARGB(255, 3, 69, 250);
+  static Color pinkColor = Colors.pink;
+  static Color cyanColor = Colors.cyan;
 }

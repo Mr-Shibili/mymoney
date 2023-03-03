@@ -99,7 +99,8 @@ class _HistoryState extends State<History> {
                 ]),
               ),
             ),
-            Expanded(flex: 9, child: HistoryList()),
+            Expanded(
+                flex: 9, child: SingleChildScrollView(child: HistoryList())),
           ],
         ));
   }
