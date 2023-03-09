@@ -5,6 +5,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mymoney/db/categorydb/transactiondb/transactiondb.dart';
 import 'package:mymoney/screens/about.dart';
 import 'package:mymoney/screens/feedback.dart';
+import 'package:mymoney/screens/privacy_policy.dart';
+import 'package:mymoney/screens/terms_and_conditions.dart';
 
 import 'package:mymoney/screens/widgets/global_widgets.dart';
 import 'package:mymoney/screens/widgets/notification_class.dart';
@@ -120,16 +122,30 @@ class _ProfileState extends State<Profile> {
                       title: Text('Rate app'),
                     ),
                   ),
-                  const Card(
+                  Card(
                     child: ListTile(
-                      leading: Icon(Iconsax.document),
-                      title: Text('Terms and Conditions'),
+                      leading: const Icon(Iconsax.document),
+                      title: const Text('Terms and Conditions'),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TandC(),
+                            ));
+                      },
                     ),
                   ),
-                  const Card(
+                  Card(
                     child: ListTile(
-                      leading: Icon(Iconsax.lock),
-                      title: Text('Privacy Policy'),
+                      leading: const Icon(Iconsax.lock),
+                      title: const Text('Privacy Policy'),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TermsAndConditons(),
+                            ));
+                      },
                     ),
                   ),
                   Card(

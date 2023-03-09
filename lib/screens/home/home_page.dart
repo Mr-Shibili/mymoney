@@ -23,11 +23,15 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+List<String> nameCategory = [];
+List<double> valCategory = [];
+
 class _HomePageState extends State<HomePage> {
   double? expenseTotal;
   double? incomeTotal;
   List<double> temp = [];
   int highval = 0;
+
   Future<void> total() async {
     final listData = await Transactiondb.instance.getAllTransaction();
 

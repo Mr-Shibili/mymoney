@@ -25,9 +25,8 @@ class PieChart2State extends State {
 
   @override
   void initState() {
-    chart();
-
     super.initState();
+    chart();
   }
 
   @override

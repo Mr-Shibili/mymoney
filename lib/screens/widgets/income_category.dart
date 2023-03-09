@@ -30,7 +30,7 @@ class _InocomeCategoryState extends State<InocomeCategory> {
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const CircleAvatar(),
+                const Icon(Icons.star),
                 const SizedBox(
                   width: 10,
                 ),
