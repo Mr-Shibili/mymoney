@@ -37,12 +37,17 @@ class _CustomChoiceState extends State<CustomChoice> {
   List<String> item = ['All', 'Expense', 'Income'];
   String dropdownValue = 'All';
   @override
+  void dispose() {
+    super.dispose();
+    seperated('All');
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //
     return Row(
       children: [
         !widget.isDropDown
-            ? SizedBox()
+            ? const SizedBox()
             : Container(
                 alignment: Alignment.center,
                 height: 35,

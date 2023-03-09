@@ -1,9 +1,29 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:mymoney/screens/home/home_page.dart';
+import 'package:mymoney/screens/home/menu_bar.dart';
 import 'package:mymoney/theme/color_theme.dart';
 import 'package:mymoney/screens/widgets/global_widgets.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+        const Duration(seconds: 3),
+        () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => MenuBarBottom())));
+  }
 
   @override
   Widget build(BuildContext context) {

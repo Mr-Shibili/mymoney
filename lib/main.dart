@@ -5,6 +5,7 @@ import 'package:mymoney/db/categorydb/transactiondb/transactiondb.dart';
 import 'package:mymoney/model/category/category.dart';
 import 'package:mymoney/model/category/transaction_model.dart';
 import 'package:mymoney/screens/home/menu_bar.dart';
+import 'package:mymoney/screens/splash_screen.dart';
 import 'package:mymoney/screens/widgets/notification_class.dart';
 
 Future<void> main() async {
@@ -30,14 +31,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    NotificationServices().notificationDetails();
+    // NotificationServices().notificationDetails();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MenuBarBottom(),
+      home: const SplashScreen(),
       initialRoute: '/',
       // routes: {
       //   '/': (context) => HomePage(),

@@ -10,19 +10,18 @@ import 'package:mymoney/screens/widgets/global_widgets.dart';
 import 'package:mymoney/theme/color_theme.dart';
 
 class HistoryList extends StatefulWidget {
-  HistoryList({
-    this.selectedcategorytype,
-    this.selectdate,
-    super.key,
-    this.selectedcategorymodel,
-    this.search,
-  });
+  HistoryList(
+      {this.selectedcategorytype,
+      this.selectdate,
+      super.key,
+      this.selectedcategorymodel,
+      this.search,
+      this.isCompare = true});
   final String? search;
   CategoryType? selectedcategorytype;
-
   CategoryModel? selectedcategorymodel;
   DateTime? selectdate;
-
+  final bool isCompare;
   @override
   State<HistoryList> createState() => _HistoryListState();
 }
@@ -52,10 +51,12 @@ class _HistoryListState extends State<HistoryList> {
         return newlist.isEmpty
             ? const Center(child: Text('Empty'))
             : ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (ctx, index) {
-                  newlist.sort((a, b) => b.date.compareTo(a.date));
+                  !widget.isCompare
+                      ? newlist.sort((a, b) => b.date.compareTo(a.date))
+                      : newlist;
                   final value = newlist[index];
 
                   return Card(

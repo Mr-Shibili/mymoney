@@ -48,11 +48,14 @@ class _AboutState extends State<About> {
                           borderRadius: BorderRadius.circular(20)),
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Text(
-                          "Devoloped by brocamp.\nSupported by abi shaikh.\nContact us.\nwww.brocamp.com",
-                          style: CustomTextStyles.titleText
-                              .copyWith(color: Colors.white),
-                          textAlign: TextAlign.center,
+                        child: Center(
+                          child: Text(
+                            "Devoloped by brocamp.\nSupported by abi shaikh.\nContact us.\nwww.brocamp.com",
+                            style: CustomTextStyles.h2Text.copyWith(
+                                color: Colors.white,
+                                fontStyle: FontStyle.italic),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ))),
             )

@@ -1,10 +1,8 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mymoney/db/categorydb/category_db.dart';
 import 'package:mymoney/db/categorydb/transactiondb/transactiondb.dart';
-import 'package:mymoney/model/category/category.dart';
 import 'package:mymoney/model/category/transaction_model.dart';
 import 'package:mymoney/screens/widgets/global_widgets.dart';
 import 'package:mymoney/screens/widgets/history_list.dart';
@@ -26,8 +24,12 @@ class _HistoryState extends State<History> {
   @override
   void initState() {
     super.initState();
-    Transactiondb.instance.refresh();
-    CategoryDb.instance.refreshUI();
+    initFunction();
+  }
+
+  initFunction() async {
+    await CategoryDb.instance.refreshUI();
+    setState(() {});
   }
 
   @override

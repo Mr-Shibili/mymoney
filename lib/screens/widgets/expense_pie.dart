@@ -25,9 +25,8 @@ class PieChart2State extends State {
 
   @override
   void initState() {
-    chart();
-
     super.initState();
+    chart();
   }
 
   @override
@@ -90,7 +89,7 @@ class PieChart2State extends State {
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold)),
                                 TextSpan(
-                                    text: '  (${val[index].toInt()})',
+                                    text: ' - ₹${val[index].toInt()}',
                                     style: const TextStyle(
                                         color: Colors.red,
                                         fontWeight: FontWeight.bold))

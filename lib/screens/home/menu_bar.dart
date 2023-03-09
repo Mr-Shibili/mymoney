@@ -26,14 +26,6 @@ class _MenuBarBottomState extends State<MenuBarBottom> {
     const Statitics(),
     const Profile(),
   ];
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    Transactiondb.instance.refresh();
-    CategoryDb.instance.refreshUI();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

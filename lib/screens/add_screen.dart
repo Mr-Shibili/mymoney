@@ -292,6 +292,7 @@ class _AddScreenState extends State<AddScreen> {
               selectedcategorymodel: selectedcategorymodel,
               selectedcategorytype: selectedcategorytype,
               selectdate: selectdate,
+              isCompare: false,
             )
           ],
         ),

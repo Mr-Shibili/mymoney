@@ -92,7 +92,7 @@ class PieChart2State extends State {
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold)),
                           TextSpan(
-                              text: '  (${val[index].toInt()})',
+                              text: ' - ₹${val[index].toInt()}',
                               style: const TextStyle(
                                   color: Colors.green,
                                   fontWeight: FontWeight.bold))

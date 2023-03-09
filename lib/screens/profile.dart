@@ -69,12 +69,12 @@ class _ProfileState extends State<Profile> {
                             light = value;
                           });
                           if (value == true) {
-                            NotificationServices().periodicalshowNotification(
-                                ctx: context,
-                                title: 'Reminder',
-                                body: 'dont forget to add transaction');
+                            // NotificationServices().periodicalshowNotification(
+                            //     ctx: context,
+                            //     title: 'Reminder',
+                            //     body: 'dont forget to add transaction');
                           } else {
-                            NotificationServices().stopNotification();
+                            // NotificationServices().stopNotification();
                           }
                         },
                       ),

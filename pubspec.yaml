@@ -42,6 +42,7 @@ dependencies:
   iconsax: ^0.0.8
   intl: ^0.18.0
   percent_indicator: ^4.2.2
+  syncfusion_flutter_charts: ^20.4.52
   timezone: ^0.9.1
 
 dev_dependencies:

@@ -40,23 +40,8 @@ class _StatiticsState extends State<Statitics> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // SizedBox(height: 8),
-                  // Icon(
-                  //   Icons.arrow_back,
-                  //   color: ColorTheme.whiteColor,
-                  // ),
-                  Row(children: [
-                    const Spacer(),
-
-                    // CustomChoice(
-                    //   isDropDown: false,
-                    //   selectcolor: ColorTheme.whiteColor,
-                    //   backcolor: ColorTheme.primaryColor,
-                    // ),
-                    // Icon(
-                    //   Iconsax.calendar_1,
-                    //   color: ColorTheme.whiteColor,
-                    // )
+                  Row(children: const [
+                    Spacer(),
                   ]),
                 ],
               ),
