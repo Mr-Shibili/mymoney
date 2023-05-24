@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
+//import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:mymoney/screens/widgets/global_widgets.dart';
 
 import '../theme/color_theme.dart';
@@ -65,7 +65,7 @@ class _FeedbackState extends State<FeedbackPage> {
                     ),
                   ),
                   onPressed: () {
-                    email(emailController.text, context);
+                    //  email(emailController.text, context);
                     emailController.clear();
                   },
                   child: Text(
@@ -80,32 +80,32 @@ class _FeedbackState extends State<FeedbackPage> {
         ));
   }
 
-  Future<void> email(String text, context) async {
-    final Email email = Email(
-      body: text,
-      subject: 'Feedback',
-      recipients: ['shibiliavm@gmail.com'],
-      cc: ['nil'],
-      bcc: ['nil'],
-      isHTML: false,
-    );
+  // Future<void> email(String text, context) async {
+  //   final Email email = Email(
+  //     body: text,
+  //     subject: 'Feedback',
+  //     recipients: ['shibiliavm@gmail.com'],
+  //     cc: ['nil'],
+  //     bcc: ['nil'],
+  //     isHTML: false,
+  //   );
 
-    String platformResponse;
+  //   String platformResponse;
 
-    try {
-      await FlutterEmailSender.send(email);
-      platformResponse = 'success';
-    } catch (error) {
-      print(error);
-      platformResponse = error.toString();
-    }
+  //   try {
+  //     await FlutterEmailSender.send(email);
+  //     platformResponse = 'success';
+  //   } catch (error) {
+  //     print(error);
+  //     platformResponse = error.toString();
+  //   }
 
-    if (!mounted) return;
+  //   if (!mounted) return;
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(platformResponse),
-      ),
-    );
-  }
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(
+  //       content: Text(platformResponse),
+  //     ),
+  //   );
+  // }
 }

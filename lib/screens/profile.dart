@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mymoney/db/categorydb/transactiondb/transactiondb.dart';
@@ -7,10 +5,7 @@ import 'package:mymoney/screens/about.dart';
 import 'package:mymoney/screens/feedback.dart';
 import 'package:mymoney/screens/privacy_policy.dart';
 import 'package:mymoney/screens/terms_and_conditions.dart';
-
 import 'package:mymoney/screens/widgets/global_widgets.dart';
-import 'package:mymoney/screens/widgets/notification_class.dart';
-
 import '../theme/color_theme.dart';
 
 class Profile extends StatefulWidget {
@@ -143,7 +138,7 @@ class _ProfileState extends State<Profile> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const TermsAndConditons(),
+                              builder: (context) => const PrivacyPolicy(),
                             ));
                       },
                     ),

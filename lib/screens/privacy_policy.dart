@@ -5,14 +5,14 @@ import 'package:mymoney/screens/widgets/global_widgets.dart';
 
 import '../theme/color_theme.dart';
 
-class TermsAndConditons extends StatelessWidget {
-  const TermsAndConditons({super.key});
+class PrivacyPolicy extends StatelessWidget {
+  const PrivacyPolicy({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Terms and Conditions',
+        title: Text('Privacy Policy',
             style: CustomTextStyles.h2Text.copyWith(color: Colors.white)),
         centerTitle: true,
         leading: IconButton(
